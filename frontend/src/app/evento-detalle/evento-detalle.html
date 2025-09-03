@@ -1,9 +1,8 @@
 <div *ngIf="evento" class="detalle-evento">
-  <p><strong>ID:</strong> {{ evento?.id }}</p>
-  <p><strong>Nombre:</strong> {{ evento?.nombre }}</p>
-  <p><strong>Descripción:</strong> {{ evento?.descripcion }}</p>
-  <p><strong>Inicio:</strong> {{ evento?.fecha_inicio | date:'yyyy-MM-dd' }}</p>
-  <p><strong>Fin:</strong> {{ evento?.fecha_fin | date:'yyyy-MM-dd' }}</p>
-
+  <p><strong>ID:</strong> {{ evento.id }}</p>
+    <p><strong>Nombre:</strong> {{ evento.nombre }}</p>
+    <p><strong>Descripción:</strong> {{ evento.descripcion }}</p>
+    <p><strong>Inicio:</strong> {{ evento.fecha_inicio | date:'yyyy-MM-dd' }}</p>
+    <p><strong>Fin:</strong> {{ evento.fecha_fin | date:'yyyy-MM-dd' }}</p>
   <button (click)="cerrar.emit()">Cerrar</button>
 </div>
