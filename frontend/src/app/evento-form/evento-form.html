@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>
+  {{ modo === 'crear' ? '➕ Crear Evento' : '✏️ Editar Evento' }}
+</h2>
+
+<div mat-dialog-content>
+  <form (ngSubmit)="guardar()">
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Nombre</mat-label>
+      <input matInput [(ngModel)]="evento.nombre" name="nombre" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Descripción</mat-label>
+      <input matInput [(ngModel)]="evento.descripcion" name="descripcion" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Fecha inicio</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker1"
+        [(ngModel)]="evento.fecha_inicio"
+        name="fecha_inicio"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Fecha fin</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker2"
+        [(ngModel)]="evento.fecha_fin"
+        name="fecha_fin"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+</div>
+
+<style>
+  .w-100 { width: 100%; }
+  [mat-dialog-content] { display: block; }
+</style>

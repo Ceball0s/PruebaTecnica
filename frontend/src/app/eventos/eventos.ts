@@ -3,11 +3,40 @@ import { EventosService, Evento } from './eventos.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+// Angular Material
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+
+import { EventoListComponent } from '../evento-list/evento-list';
+import { EventoFormComponent } from '../evento-form/evento-form';
+import { EventoDetalleComponent } from '../evento-detalle/evento-detalle';
+
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 @Component({
   selector: 'app-evento',
   standalone: true,
-  imports: [HttpClientModule, FormsModule, CommonModule],
+   imports: [
+    HttpClientModule,
+    FormsModule,
+    CommonModule,
+    // Material
+    // Material
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    // Hijos
+    EventoListComponent,
+    EventoDetalleComponent,
+    //calendario
+    MatDatepickerModule,
+    MatNativeDateModule,
+
+
+  ],
   templateUrl: './eventos.html',
   styleUrls: ['./eventos.css']
 })
@@ -24,7 +53,53 @@ export class Eventos implements OnInit {
   editandoEvento: Evento | null = null;     
 
 
-  constructor(private eventosService: EventosService) {}
+  constructor(private eventosService: EventosService, private dialog: MatDialog) {}
+
+  // ====== MODAL: CREAR ======
+  abrirFormularioCrear() {
+    const ref = this.dialog.open(EventoFormComponent, {
+      width: '460px',
+      data: { modo: 'crear' },
+      disableClose: true,
+    });
+
+    ref.afterClosed().subscribe((result) => {
+      if (!result) return; // cancelado
+      const eventoFormateado = {
+        ...result,
+        fecha_inicio: new Date(result.fecha_inicio).toISOString(),
+        fecha_fin: new Date(result.fecha_fin).toISOString(),
+      };
+      this.eventosService.createEvento(eventoFormateado).subscribe(() => {
+        this.cargarEventos();
+      });
+    });
+  }
+
+  // ====== MODAL: EDITAR ======
+  abrirFormularioEditar(evento: Evento) {
+    const ref = this.dialog.open(EventoFormComponent, {
+      width: '460px',
+      data: { modo: 'editar', evento },
+      disableClose: true,
+    });
+
+    ref.afterClosed().subscribe((result) => {
+      if (!result) return; // cancelado
+      const { id, ...resto } = result;
+      const eventoFormateado = {
+        ...resto,
+        fecha_inicio: new Date(resto.fecha_inicio).toISOString(),
+        fecha_fin: new Date(resto.fecha_fin).toISOString(),
+      };
+      this.eventosService.updateEvento(id!, eventoFormateado).subscribe(() => {
+        this.cargarEventos();
+      });
+    });
+  }
+
+
+
 
   ngOnInit(): void {
     this.cargarEventos();
@@ -54,6 +129,8 @@ export class Eventos implements OnInit {
       this.eventoSeleccionado = data;
     });
   }
+
+  
 
   editarEvento(evento: Evento) {
     // Cargamos los datos en el formulario de edición
