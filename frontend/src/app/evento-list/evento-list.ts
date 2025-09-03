@@ -18,5 +18,5 @@ export class EventoListComponent {
   @Output() editar = new EventEmitter<Evento>();
   @Output() eliminar = new EventEmitter<number>();
 
-  displayedColumns = ['id', 'nombre', 'descripcion', 'acciones'];
+  displayedColumns = ['id', 'nombre', 'descripcion', 'inicio', 'fin', 'acciones'];
 }
