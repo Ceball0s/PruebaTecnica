@@ -1,0 +1,67 @@
+.eventos-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.eventos-table th,
+.eventos-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.eventos-table th {
+  background-color: #f4f4f4;
+}
+
+.acciones {
+  margin: 10px 0;
+}
+
+.acciones button {
+  padding: 8px 16px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.acciones button:hover {
+  background-color: #125ca1;
+}
+
+.form-container {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  border-radius: 5px;
+  max-width: 400px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form input {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  padding: 8px;
+  background: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+form button:hover {
+  background: #1e7e34;
+}

@@ -1,0 +1,87 @@
+<h2>📋 Lista de Eventos</h2>
+
+<table class="eventos-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Inicio</th>
+      <th>Fin</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let evento of eventos">
+      <td>{{ evento.id }}</td>
+      <td>{{ evento.nombre }}</td>
+      <td>{{ evento.descripcion }}</td>
+      <td>{{ evento.fecha_inicio | date: 'yyyy-MM-dd' }}</td>
+      <td>{{ evento.fecha_fin | date: 'yyyy-MM-dd' }}</td>
+      <td>
+        <button (click)="verEvento(evento)">👁️ Ver</button>
+        <button (click)="editarEvento(evento)">✏️ Editar</button>
+        <button (click)="eliminarEvento(evento.id!)">🗑️ Borrar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Botón para mostrar formulario -->
+<div class="acciones">
+  <button (click)="mostrarFormulario = !mostrarFormulario">
+    {{ mostrarFormulario ? '❌ Cancelar' : '➕ Crear Evento' }}
+  </button>
+</div>
+
+<!-- Formulario de creación -->
+<div *ngIf="mostrarFormulario" class="form-container">
+  <h3>Crear Evento</h3>
+  <form (ngSubmit)="crearEvento()">
+    <label>Nombre:</label>
+    <input [(ngModel)]="nuevoEvento.nombre" name="nombre" required>
+
+    <label>Descripción:</label>
+    <input [(ngModel)]="nuevoEvento.descripcion" name="descripcion">
+
+    <label>Fecha inicio:</label>
+    <input type="date" [(ngModel)]="nuevoEvento.fecha_inicio" name="fecha_inicio" required>
+
+    <label>Fecha fin:</label>
+    <input type="date" [(ngModel)]="nuevoEvento.fecha_fin" name="fecha_fin" required>
+
+    <button type="submit">✅ Guardar</button>
+  </form>
+</div>
+
+<!-- Detalle de evento -->
+<div *ngIf="eventoSeleccionado" class="detalle-evento">
+  <h3>📌 Detalle de Evento</h3>
+  <p><strong>ID:</strong> {{ eventoSeleccionado.id }}</p>
+  <p><strong>Nombre:</strong> {{ eventoSeleccionado.nombre }}</p>
+  <p><strong>Descripción:</strong> {{ eventoSeleccionado.descripcion }}</p>
+  <p><strong>Inicio:</strong> {{ eventoSeleccionado.fecha_inicio | date: 'yyyy-MM-dd' }}</p>
+  <p><strong>Fin:</strong> {{ eventoSeleccionado.fecha_fin | date: 'yyyy-MM-dd' }}</p>
+  <button (click)="eventoSeleccionado = null">❌ Cerrar</button>
+</div>
+
+<!-- Formulario de edición -->
+<div *ngIf="editandoEvento" class="form-container">
+  <h3>✏️ Editar Evento</h3>
+  <form (ngSubmit)="guardarEdicion()">
+    <label>Nombre:</label>
+    <input [(ngModel)]="editandoEvento.nombre" name="nombre">
+
+    <label>Descripción:</label>
+    <input [(ngModel)]="editandoEvento.descripcion" name="descripcion">
+
+    <label>Fecha inicio:</label>
+    <input type="date" [(ngModel)]="editandoEvento.fecha_inicio" name="fecha_inicio">
+
+    <label>Fecha fin:</label>
+    <input type="date" [(ngModel)]="editandoEvento.fecha_fin" name="fecha_fin">
+
+    <button type="submit">💾 Guardar</button>
+    <button type="button" (click)="editandoEvento = null">❌ Cancelar</button>
+  </form>
+</div>

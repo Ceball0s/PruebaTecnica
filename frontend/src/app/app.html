@@ -1,0 +1,35 @@
+<h1>Gestión de Eventos</h1>
+
+<h2>Crear Evento</h2>
+<form (ngSubmit)="crearEvento()">
+  <label>Nombre:
+    <input [(ngModel)]="nuevoEvento.nombre" name="nombre" required>
+  </label>
+  <br>
+  <label>Descripción:
+    <input [(ngModel)]="nuevoEvento.descripcion" name="descripcion">
+  </label>
+  <br>
+  <label>Fecha inicio:
+    <input type="date" [(ngModel)]="nuevoEvento.fecha_inicio" name="fecha_inicio" required>
+  </label>
+  <br>
+  <label>Fecha fin:
+    <input type="date" [(ngModel)]="nuevoEvento.fecha_fin" name="fecha_fin" required>
+  </label>
+  <br>
+  <button type="submit">Crear</button>
+</form>
+
+<h2>Lista de Eventos</h2>
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Descripción</th>
+    <th>Inicio</th>
+    <th>Fin</th>
+  </tr>
+  <tr *ngFor="let evento of eventos">
+    <td>{{ evento.id }}</td>
+    <td>{{ evento.nombre }}<
